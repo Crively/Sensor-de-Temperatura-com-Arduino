@@ -5,7 +5,7 @@
 
 ## 📋 Descrição do Projeto
 
-Este projeto consiste em um sistema de monitoramento de temperatura e umidade utilizando um **Arduino Uno**, um **sensor DHT11** e um **display LCD I2C**. O objetivo é fornecer uma interface simples e visual para leitura das condições ambientais em tempo real. O sistema também pode ser facilmente adaptado para controlar um relé, permitindo futuras automações, como o acionamento de ventiladores ou aquecedores.
+Este projeto consiste em um sistema de monitoramento de temperatura e umidade para gestão de vacas leiteiras, utilizando um **Arduino Uno**, um **sensor DHT11** e um **display LCD I2C**. O objetivo é fornecer uma interface simples e visual para leitura das condições ambientais em tempo real. O sistema também pode ser facilmente adaptado para controlar um relé, permitindo futuras automações, como o acionamento de ventiladores ou aquecedores.
 
 ## 🎯 Funcionalidades Principais
 
