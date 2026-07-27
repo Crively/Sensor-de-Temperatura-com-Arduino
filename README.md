@@ -69,7 +69,7 @@ O projeto foi desenvolvido e pode ser testado diretamente no Wokwi. Acesse o lin
 *   [ ] **Controle do Relé:** Implementar lógica para ligar/desligar o relé com base em limites de temperatura ou umidade.
 *   [ ] **Registro de Dados:** Adicionar um módulo SD para registrar as leituras ao longo do tempo.
 *   [ ] **Comunicação Serial:** Enviar os dados para o computador via porta serial para análise ou gráficos.
-*   [ ] **Ajuste de Contraste:** Adicionar um potenciômetro para ajustar o contraste do display (caso não use I2C com ajuste fixo).
+*   [ ] **Ajuste de Contraste:** Adicionar um potenciômetro para ajustar o contraste do display
 *   [ ] **Interface Web:** Utilizar um módulo ESP8266 para enviar os dados para a nuvem.
 
 ## 🤝 Contribuição
