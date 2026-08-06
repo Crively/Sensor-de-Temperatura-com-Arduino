@@ -12,7 +12,7 @@ Este projeto consiste em um sistema de monitoramento de temperatura e umidade pa
 
 ## 🎯 Funcionalidades Principais
 
-*   **Leitura de Temperatura e Umidade:** Utiliza o sensor DHT11 para capturar os dados do ambiente.
+*   **Leitura de Temperatura e Umidade:** Utiliza o sensor DHT22 para capturar os dados do ambiente.
 *   **Exibição em Display LCD:** Mostra as informações de forma clara em um display LCD 16x2 com comunicação I2C.
 *   **Estrutura para Atuação:** Inclui um relé no circuito, pronto para ser integrado à lógica de controle (ex: ligar um dispositivo quando a temperatura ultrapassar um limite).
 *   **Simulação no Wokwi:** Projeto totalmente simulável na plataforma Wokwi, facilitando testes e ajustes.
