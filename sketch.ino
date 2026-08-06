@@ -6,17 +6,29 @@
 
 #define DHTPIN 2
 #define DHTTYPE DHT22
-DHT dht(DHTPIN, DHTTYPE);
 
+DHT dht(DHTPIN, DHTTYPE);
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 // Relés
 int releVentilador = 8;   // Ventilador
 int releUmidificador = 9; // Umidificador
 
+// Limiares com histerese
+const float TEMP_LIGA = 25.0;   // liga o ventilador a partir daqui
+const float TEMP_DESLIGA = 23.0; // só desliga abaixo daqui
+
+const float UMID_LIGA = 40.0;    // liga o umidificador abaixo daqui
+const float UMID_DESLIGA = 45.0; // só desliga acima daqui
+
+// Estados atuais dos relés (guardam a última decisão)
+bool ventiladorLigado = false;
+bool umidificadorLigado = false;
+
 void setup() {
   Serial.begin(115200);
   dht.begin();
+
   lcd.begin(16, 2);
   lcd.backlight();
 
@@ -35,7 +47,7 @@ void loop() {
     return;
   }
 
-  // Mostra apenas temperatura e umidade no LCD
+  // Mostra temperatura e umidade no LCD
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Temp: ");
@@ -47,23 +59,21 @@ void loop() {
   lcd.print(humidity, 1);
   lcd.print("%");
 
-  // Controle do ventilador
-  if (temperature >= 25) {
-    digitalWrite(releVentilador, HIGH);
-    Serial.println("Ventilador ON");
-  } else {
-    digitalWrite(releVentilador, LOW);
-    Serial.println("Ventilador OFF");
+  // Controle do ventilador com histerese
+  if (!ventiladorLigado && temperature >= TEMP_LIGA) {
+    ventiladorLigado = true;
+  } else if (ventiladorLigado && temperature <= TEMP_DESLIGA) {
+    ventiladorLigado = false;
   }
+  digitalWrite(releVentilador, ventiladorLigado ? HIGH : LOW);
+  Serial.println(ventiladorLigado ? "Ventilador ON" : "Ventilador OFF");
 
-  // Controle do umidificador
-  if (humidity <= 40) {
-    digitalWrite(releUmidificador, HIGH);
-    Serial.println("Umidificador ON");
-  } else {
-    digitalWrite(releUmidificador, LOW);
-    Serial.println("Umidificador OFF");
+  // Controle do umidificador com histerese
+  if (!umidificadorLigado && humidity <= UMID_LIGA) {
+    umidificadorLigado = true;
+  } else if (umidificadorLigado && humidity >= UMID_DESLIGA) {
+    umidificadorLigado = false;
   }
-
-
+  digitalWrite(releUmidificador, umidificadorLigado ? HIGH : LOW);
+  Serial.println(umidificadorLigado ? "Umidificador ON" : "Umidificador OFF");
 }
