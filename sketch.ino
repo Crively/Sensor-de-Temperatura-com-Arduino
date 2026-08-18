@@ -10,18 +10,15 @@
 DHT dht(DHTPIN, DHTTYPE);
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
-// Relés
-int releVentilador = 8;   // Ventilador
-int releUmidificador = 9; // Umidificador
+int releVentilador = 8; 
+int releUmidificador = 9;
 
-// Limiares com histerese
-const float TEMP_LIGA = 25.0;   // liga o ventilador a partir daqui
-const float TEMP_DESLIGA = 23.0; // só desliga abaixo daqui
+const float TEMP_LIGA = 25.0;
+const float TEMP_DESLIGA = 23.0;
 
-const float UMID_LIGA = 40.0;    // liga o umidificador abaixo daqui
-const float UMID_DESLIGA = 45.0; // só desliga acima daqui
+const float UMID_LIGA = 40.0;
+const float UMID_DESLIGA = 45.0;
 
-// Estados atuais dos relés (guardam a última decisão)
 bool ventiladorLigado = false;
 bool umidificadorLigado = false;
 
@@ -47,7 +44,6 @@ void loop() {
     return;
   }
 
-  // Mostra temperatura e umidade no LCD
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Temp: ");
@@ -59,7 +55,6 @@ void loop() {
   lcd.print(humidity, 1);
   lcd.print("%");
 
-  // Controle do ventilador com histerese
   if (!ventiladorLigado && temperature >= TEMP_LIGA) {
     ventiladorLigado = true;
   } else if (ventiladorLigado && temperature <= TEMP_DESLIGA) {
@@ -68,7 +63,6 @@ void loop() {
   digitalWrite(releVentilador, ventiladorLigado ? HIGH : LOW);
   Serial.println(ventiladorLigado ? "Ventilador ON" : "Ventilador OFF");
 
-  // Controle do umidificador com histerese
   if (!umidificadorLigado && humidity <= UMID_LIGA) {
     umidificadorLigado = true;
   } else if (umidificadorLigado && humidity >= UMID_DESLIGA) {
